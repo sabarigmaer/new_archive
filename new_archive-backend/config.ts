@@ -1,0 +1,4 @@
+export default {
+    rule34ApiKey: "0b6a333955458a7331569cebc97293a81c15a1d5a83bd89d9f60c173fcd9edc2c3806c0a9cae29a3ff5d6aff42de808c78b91b0b0b1a15d07b1828312d638b1a",
+    rule34UserId: 5224752,
+}

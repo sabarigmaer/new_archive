@@ -1,0 +1,17 @@
+{
+  "name": "new_archive",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "cd new_archive-backend && bun run dev & cd new_archive-frontend && bun run dev",
+    "dev:frontend": "cd new_archive-frontend && bun run dev",
+    "dev:backend": "cd new_archive-backend && bun run dev",
+    "install:all": "cd new_archive-frontend && bun install && cd ../new_archive-backend && bun install"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

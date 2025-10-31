@@ -1,0 +1,17 @@
+{
+  "name": "server",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.16.1",
+    "@types/jsdom": "^21.1.7",
+    "axios": "^1.12.2",
+    "hono": "^4.9.7",
+    "jsdom": "^27.0.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "prisma": "^6.16.1"
+  }
+}

@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Gallery {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String?
+  coverImage  String?
+  parentId    Int?
+  type        String?
+  link        String?
+  likes       Int    @default(0)
+  parent   Gallery?  @relation("GalleryToGallery", fields: [parentId], references: [id], onDelete: SetNull)
+  children Gallery[] @relation("GalleryToGallery")
+
+  files File[]
+}
+
+model File {
+  id        Int    @id @default(autoincrement())
+  name      String
+  galleryId Int
+  url       String
+  likes     Int    @default(0)
+
+  gallery Gallery @relation(fields: [galleryId], references: [id], onDelete: Cascade)
+}

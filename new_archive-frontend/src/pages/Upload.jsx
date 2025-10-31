@@ -2,7 +2,6 @@ import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { saveToIndexedDB, getFromIndexedDB } from '../utils/indexedDB';
-import { posts } from "rule34js";
 import MediaPlayer from '../components/MediaPlayer';
 import { imageExtensions, videoExtensions, gifExtensions } from '../constants';
 
@@ -21,7 +20,6 @@ function Upload() {
     });
     
     useEffect(() => {
-        posts({ tags: ['optimystic']}).then(console.log)
         const fetchData = async () => {
             try {
 

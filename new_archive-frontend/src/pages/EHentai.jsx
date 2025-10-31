@@ -21,7 +21,7 @@ function EHentai() {
       setLoading(true);
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/ehentai/" + params.id
+          import.meta.env.VITE_APP_BACKEND_URL +"/api/ehentai/" + params.id
         );
         setFiles(response.data.files.images);
         setDisplayedFiles(response.data.files.images.slice(0, itemsPerPage));

@@ -4,6 +4,9 @@ import { cors } from 'hono/cors'
 import axios from 'axios'
 import config from '../config'
 import getEhentaiFiles from './modules/Ehentai'
+import { serveStatic } from 'hono/serve-static'
+import fs from 'fs'
+import path from 'path'
 
 interface CacheEntry {
   data: any;
@@ -42,7 +45,7 @@ setInterval(cleanupExpiredCache, 60 * 60 * 1000);
 const app = new Hono({})
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000', '*'],
+  origin: ['*'],
   allowHeaders: ['Content-Type', 'Range', 'Authorization'],
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   exposeHeaders: ['Content-Range', 'Content-Length', 'Accept-Ranges'],
@@ -335,5 +338,33 @@ app.get('/api/proxy', async (c) => {
     return c.json({ error: 'Failed to proxy request' }, 500);
   }
 })
+
+// Serve static files from React build
+// Provide Node-specific getContent and isDir implementations so the
+// Hono serve-static middleware can read files on disk.
+const clientRoot = path.resolve(process.cwd(), 'client')
+
+const getContentNode = async (p: string, c?: any) => {
+  try {
+    const resolved = path.resolve(p)
+    if (!resolved.startsWith(clientRoot)) return null
+    const data = await fs.promises.readFile(resolved)
+    // Convert Node Buffer to Uint8Array to satisfy Hono types
+    return new Uint8Array(data)
+  } catch (e) {
+    return null
+  }
+}
+
+const isDirNode = async (p: string) => {
+  try {
+    const stat = await fs.promises.stat(path.resolve(p))
+    return stat.isDirectory()
+  } catch (e) {
+    return false
+  }
+}
+
+app.use('/*', serveStatic({ root: clientRoot, getContent: getContentNode, isDir: isDirNode }))
 
 export default app

@@ -215,7 +215,7 @@ function Upload() {
                         {/* Media content */}
                         <div className="max-h-[90vh] max-w-[90vw] relative">
                             <MediaPlayer 
-                                src={`http://localhost:3000/api/proxy?link=https://ia800903.us.archive.org/21/items/${params.id}/${groupedFiles[previewState.currentGroup][previewState.currentIndex]}`}
+                                src={import.meta.env.VITE_APP_BACKEND_URL+`/api/proxy?link=https://ia800903.us.archive.org/21/items/${params.id}/${groupedFiles[previewState.currentGroup][previewState.currentIndex]}`}
                             />
                             <div className="absolute bottom-0 left-0 right-0 text-center text-white backdrop-blur-sm bg-black/20 py-2">
                                 {groupedFiles[previewState.currentGroup][previewState.currentIndex].split('/').pop()}
@@ -277,7 +277,7 @@ function Upload() {
                                         >
                                             <div>
                                                 <MediaPlayer 
-                                                    src={`http://localhost:3000/api/proxy?link=https://ia800903.us.archive.org/21/items/${params.id}/${encodeURIComponent(file)}`}
+                                                    src={import.meta.env.VITE_APP_BACKEND_URL+`/api/proxy?link=https://ia800903.us.archive.org/21/items/${params.id}/${encodeURIComponent(file)}`}
                                                 />
                                             </div>
                                             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white p-2 text-sm truncate opacity-0 group-hover:opacity-100 transition-opacity duration-200">
